@@ -32,16 +32,17 @@ flowText = () ->
    return "" if s.length > 0;                        
                         
 immunoText = () ->   
-  pos = $('#immunopos').val();
-  neg = $('#immunoneg').val();
+  pos = $('#pos_markers').val() ? "";
+  neg = $('#neg_markers').val() ? "";
   if pos.length > 0 and neg.length > 0
-    return "positive for " + pos + " and negative for " + neg + "";  
+    returntext = "positive for " + pos + " and negative for " + neg + "";  
   if pos.length == 0 and neg.length > 0
-    return "negative for " + neg;  
+    returntext =  "negative for " + neg;  
   if pos.length > 0 and neg.length == 0
-    return "positive for " + pos;
+    returntext =  "positive for " + pos;
   if pos.length == 0 and neg.length == 0
-    return "_";
+    returntext =  "_";
+  return returntext.replace(/,/g,", ");
   
 updateMERatio = () ->
   e = $('#me_erythroid').val();
@@ -74,10 +75,7 @@ updateText = () ->
     areaofinterest = [];
     areaofinterest.push(e.value) for i,e in $('[name="rbc"]:checked');
     
-    updateSection ["touch"];    
-    updateSection ["reticulin"];    
-    updateSection ["iron"];    
-    updateSection ["clot"];    
+    updateSection ["touchetc"];    
     updateSection ["immuno"], immunoText();    
     updateSection ["flow"], flowText();
     if $('#me_ratio').val() isnt ""

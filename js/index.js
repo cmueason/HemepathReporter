@@ -47,21 +47,22 @@ flowText = function() {
 };
 
 immunoText = function() {
-  var neg, pos;
-  pos = $('#immunopos').val();
-  neg = $('#immunoneg').val();
+  var neg, pos, ref, ref1, returntext;
+  pos = (ref = $('#pos_markers').val()) != null ? ref : "";
+  neg = (ref1 = $('#neg_markers').val()) != null ? ref1 : "";
   if (pos.length > 0 && neg.length > 0) {
-    return "positive for " + pos + " and negative for " + neg + "";
+    returntext = "positive for " + pos + " and negative for " + neg + "";
   }
   if (pos.length === 0 && neg.length > 0) {
-    return "negative for " + neg;
+    returntext = "negative for " + neg;
   }
   if (pos.length > 0 && neg.length === 0) {
-    return "positive for " + pos;
+    returntext = "positive for " + pos;
   }
   if (pos.length === 0 && neg.length === 0) {
-    return "_";
+    returntext = "_";
   }
+  return returntext.replace(/,/g, ", ");
 };
 
 updateMERatio = function() {
@@ -110,10 +111,7 @@ updateText = function() {
       i = ref[e];
       areaofinterest.push(e.value);
     }
-    updateSection(["touch"]);
-    updateSection(["reticulin"]);
-    updateSection(["iron"]);
-    updateSection(["clot"]);
+    updateSection(["touchetc"]);
     updateSection(["immuno"], immunoText());
     updateSection(["flow"], flowText());
     if ($('#me_ratio').val() !== "") {

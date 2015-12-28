@@ -1,12 +1,13 @@
 td {
   display: table-cell;
-  vertical-align: top;
-}
+  vertical-align: top; }
 
 input[type="number"] {
-  width: 50px;
-}
+  width: 50px; }
 
 #heading {
-  color: red;
-}
+  color: red; }
+
+.reportheading {
+  color: green;
+  font-weight: bold; }

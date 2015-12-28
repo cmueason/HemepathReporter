@@ -5,288 +5,202 @@
     %title Hemepath Reporter
     %link{:rel=>"stylesheet", :href=>"css/style.css"}
     %script{:src=>'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'}
+
+  - LNprompts = [["Effacement ","Histologic sections of the lymph node show effacement of architecture by [diffuse infiltration of] large/small lymphocytes/cells with irregular nuclear contour, vesicular nuclei with fine/coarse chromatin, # nucleoli.  "],
+    ["Preserved","Histologic sections of the lymph node shows presevation of lymph node architecture. "],
+    ["Distorted ","Histologic sections of the lymph node shows distortion of lymph node architecture. "],
+    ["Lymphs, Mature","The lymphocytes have small nuclei with mature cytological features. "],
+    ["Lymphs, Immature","The lymphocytes have small nuclei with immature cytological features. "],
+    ["Intact capsule","Histologic sections of the lymph node show intact capsule [with mildly/moderately increased thickness]. "],
+    ["Follicular / Sinus hyperplasia","Follicular hyperplasia and sinus hyperplasia are noted. "],
+    ["Inc No. and size","The follicles are increased in number and size. "],
+    ["Secondary","Many secondary follicles with prominent follicular center are seen. "],
+    ["Var Size/Shape","The follicles  exhibit considerable variation in size and shape. "],
+    ["Mantle Zone nl","The follicles have well-formed mantle zone.  "],
+    ["GC mit and TBM","The germinal centers contain many mitoses and  tingible-body macrophages. "],
+    ["No granuloma","No granuloma or necrosis is seen. "],
+    ["Parafollicles","Parafollicles (proliferation centers) are seen throughout sections.  "],
+    ["Fat infiltration","Foci of small lymphocytes are seen infiltrating adjacent adipose tissue.  "],
+    ["Folliculysis","A small number of follicles with variable size are seen, some with folliculolysis. "],
+    ["Inflamm background","Cells are admixed with an inflammatory background of small lymphocytes, a few eosinophils, macrophages, and plasma cells.  "]]
+  
+  - WBCprompts = [["Normal ", "In the peripheral blood, a normal WBC count with unremarkable morphology seen. "],
+                           ["Low","In the peripheral blood, a low WBC count is seen. "],
+                           ["High","In the peripheral blood, a high WBC count is seen. "],
+                           ["Toxic","Some neutrophils contain toxic granulations. "],
+                           ["Auer","Some lymphocytes containing Auer rods are seen. "],
+                           ["No Plasma","No plasma cells were seen in circulating blood. "],
+                           ["Plasma","Plasma cells were seen in circulating blood. "],
+                           ["Reactive","Occasional reactive lymphocytes were seen. "],
+                           ["No Blasts","No circulating blasts are seen. "],
+                           ["Blasts","Circulating blasts are seen. "]]
+                           
+  - RBCprompts = [["Normal","Red cells are normocytic normochromic. "],
+                           ["Hypo","Red cells are hypochromic with "],
+                           ["Hyper","Red cells are hyperchromic with "],                         
+                           ["Aniso","mild anisocytosis. "],
+                           ["Poikilo","mild poikilocytosis. "],
+                           ["Both","mild anisocytosis and poikilocytosis. "],
+                           ["Dacro","Dacrocytes"],
+                           ["Target",", target cells"],
+                           ["Ellipto",", and elliptocytes are seen. "],
+                           ["Rouleaux","Rouleaux formation is seen. "],
+                           ["NoRouleaux","No rouleaux formation is seen. "]]
+  
+  - PLTprompts = [["Normal","Platelets are adequate in number with normal granulation. "],
+    ["Low","Platelets are reduced in number with normal granulation. "],
+    ["High","Platelets are increased in number with normal granulation. "],
+    ["SizeVar","Platelets also show some variation in size. "],
+    ["Large","Some platelets are large. "],
+    ["Giant","Occasional giant platelets are seen. "],
+    ["Clumping","Occasional clumping of platelets is seen. "]]
+    
+  - BMprompts = [["Granulopoiesis nl","Granulopoiesis is unremarkable. "],
+    ["Left shift","Left-shifting is seen in granulopoiesis"],
+    ["Inc plasma cells","Increased number of plasma cells is seen. "],
+    ["Numerous neutrophils","Numerous neutrophils are seen. "],
+    ["Megakryocytes nl","Megakaryocytes are adequate in number and are unremarkable. "],
+    ["Megakryocytes dysplastic","Megakaryocytes are ___ in number and some of them are dyplastic. Occasionally the hypolobated or bilobated megakaryocytes are seen. "],
+    ["Bulbous","Some megakaryocytes are bulbous. "],
+    ["Hyperchromatic","Some megakaryocytes are hyperchromatic. "],
+    ["Mega hyperplasia cluster","Megakryocyte hyperplasia with clustering is seen. "],
+    ["Mega prolif cluster (PMF)","Megakryocyte proliferation with clustering is seen. "],
+    ["Erythropoiesis nl","Erythropoiesis is unremarkable. "],
+    ["Unremarkable trilineage","Trilineage hematopoiesis is observed and is unremarkable. "],
+    ["Apoptotic debris","Apoptotic debris is seen in the bone marrow. "],
+    ["Streaming","Some streaming of cells is seen. "]]  
+  
+  - BMAprompts = [["Multiple normal, cellular spicules","Bone marrow aspirate smears show multiple normal, cellular spicules. "],
+    ["Megas nl","Megakaryocytes are adequate in number and unremarkable. "],
+    ["Reduced","Megakaryocytes are reduced in number. "],
+    ["Increased","Megakaryocytes are increased in number. "],
+    ["No plasma","No increase in plasma cells is seen."],
+    ["Increased plasma","The number of plasma cells is increased."],
+    ["Trilineage nl","Trilineage hematopoiesis is observed. "],
+    ["Erythro nl","Erythropoiesis shows a spectrum of maturation and is unremarkable.  "],
+    ["Erythro, mild dyspl","Erythropoiesis shows a spectrum of maturation with mild dysplastic features. "],
+    ["Asynchrony","Some erythroid precursors show nuclear-cytoplasmic asynchrony. "],
+    ["Granulo nl","Granulopoiesis shows a spectrum of maturation and is unremarkable.  "],
+    ["Granulopoiesis left-shift","Granulopoiesis is left-shifted. "]]
+  
+  - TP_prompts = [["Normal","Touch preparation on the marrow core shows trilineage hematopoiesis with normal findings. "],
+    ["Inadequate for Analysis","Touch preparation on the marrow core shows no spicules and is inadequate for analysis. "]]
+    
+  - Retic_prompts = [["None","Reticulin stain of the bone marrow core shows no fibrosis. "],
+    ["Mild","Reticulin stain of the bone marrow core shows mild fibrosis (0-1+ out of 3). "],
+    ["Mod","Reticulin stain of the bone marrow core shows moderate fibrosis (1-2+ out of 3). "],
+    ["Severe","Reticulin stain of the bone marrow core shows marked increase in reticulin fibrosis (2-3+ out of 3). "]]
+    
+  - Iron_prompts = [["Normal","Prussian blue staining shows storage iron and some iron in a few erythroid cells without abnormalities. "],
+    ["Abnormal","Prussian blue staining shows neither storage iron nor iron in any erythroid cells. "],
+    ["RingedSidero","However, ringed sideroblasts are also present. _% of the erythroid cells are ringed siderblasts. "]]
+    
+  - Clot_prompts = [["Normal","Clot shows unremarkable trilineage hematopoiesis concordant with bone marrow biopsy and aspirate. "],
+       ["Nothing","Clot does not show any cells. "]]
+  
+  - Flow_prompts = [["ALP Brief Summ","Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD1a, CD2, CD3, CD4, CD5, CD7, CD8, CD9, CD10, CD11b, CD13, CD14, CD15, CD19, CD20, CD22, CD24, CD33, CD34, CD38, CD41, CD45, CD52, CD56, CD79a, CD117, CD235a, HLA-DR, IGM, KAPPA, LAMBDA, cMPO, and TdT. REPLACE See attached flow cytometry report for additional details. "],
+    ["ALL Brief","Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD10, CD19, CD20, CD34, CD45, CD56, CD117, IGM, KAPPA, LAMBDA, TDT. REPLACE See attached flow cytometry report for additional details. "],
+    ["AML Brief (i.e. limited myeloid)","Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD7, CD13, CD14, CD15, CD19, CD33, CD34, CD45, CD56, CD117. REPLACE See attached flow cytometry report for additional details. "],
+    ["MRD","Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD1a, CD2, CD3, CD4, CD5, CD7, CD8, CD10, CD11C, CD14, CD16, CD19, CD20, CD21, CD22, CD23, CD25, CD38, CD45, CD52, CD56, CD103, FMC7, HLA-DR, IGD, IGG, IGM, KAPPA, LAMDBA. REPLACE See attached flow cytometry report for additional details. "],
+    ["LTD Lymphoma Brief Summ","Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD1a, CD2, CD3, CD4, CD5, CD7, CD8, CD9, CD10, CD11b, CD13, CD14, CD15, CD19, CD20, CD22, CD24, CD33, CD34, CD38, CD41, CD45, CD52, CD56, CD79a, CD117, CD235a, HLA-DR, IGM, KAPPA, LAMBDA, cMPO, and TdT. REPLACE See attached flow cytometry report for additional details. "],
+    ["Lymphoma brief","Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD10, CD19, CD45, CD20, CD9, CD34. REPLACE See attached flow cytometry report for additional details. "],
+    ["Myeloma","Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD3, CD19, CD20, CD38, CD45, CD138, KAPPA, LAMBDA, CD56. REPLACE See attached flow cytometry report for additional details. "],
+    ["Sezary","Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD4,CD7, CD25, CD26, CD45, CD52, CLA. REPLACE See attached flow cytometry report for additional details. "]]
+    
+  - FlowMarkers = ["CD1a", "CD2", "CD3", "CD4", "CD5", "CD7", "CD8", "CD9", "CD10", "CD11b", "CD11C", "CD13", "CD14", "CD15", "CD16", "CD19", "CD20", "CD21", "CD22", "CD23", "CD24", "CD25", "CD26", "CD33", "CD34", "CD38", "CD41", "CD45", "CD52", "CD56", "CD79a", "CD103", "CD117", "CD138", "CD235a", "CLA", "cMPO", "FMC7", "HLA-DR", "IGD", "IGG", "IGM", "KAPPA", "LAMBDA", "LAMDBA","TdT"]  
   
   %body
     %table
       %tr
         %td{:width => "500px"}
           %div#reporttype
-            This report helper is intended to facilitate (but not replace) report writing. Please review the text thoroughly and make necessary modifications.
-            Report type:
-            = succeed "BM" do
-              %input{:checked => "checked", :name => "reportchoice", :type => "radio", :value => "BM"}
-            = succeed "LN" do
-              %input{:name => "reportchoice", :type => "radio", :value => "LN"}
+            Report type:                   
+            %input{:checked => "checked", :name => "reportchoice", :type => "radio", :value => "BM"}
+            BM
+            %input{:name => "reportchoice", :type => "radio", :value => "LN"}
+            LN
           %form#myform
             %div{:name => "lymphnode"}
-              %b Lymph Node
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "Histologic sections of the lymph node show effacement of architecture by [diffuse infiltration of] large/small lymphocytes/cells with irregular nuclear contour, vesicular nuclei with fine/coarse chromatin, # nucleoli.  "}
-              Effacement
-              %br
-              %input{:checked => "checked", :name => "lymphnode", :type => "checkbox", :value => "Histologic sections of the lymph node shows presevation of lymph node architecture. "}
-              Preserved
-              %input{:checked => "checked", :name => "lymphnode", :type => "checkbox", :value => "Histologic sections of the lymph node shows distortion of lymph node architecture. "}
-              Distorted
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "The lymphocytes have small nuclei with mature cytological features. "}
-              Lymphs, Mature
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "The lymphocytes have small nuclei with immature cytological features. "}
-              Lymphs, Immature
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "Histologic sections of the lymph node show intact capsule [with mildly/moderately increased thickness]. "}
-              Intact capsule
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "Follicular hyperplasia and sinus hyperplasia are noted. "}
-              Follicular / Sinus hyperplasia
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "The follicles are increased in number and size. "}
-              Inc No. and size
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "Many secondary follicles with prominent follicular center are seen. "}
-              Secondary
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "The follicles  exhibit considerable variation in size and shape. "}
-              Var Size/Shape
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "The follicles have well-formed mantle zone.  "}
-              Mantle Zone nl
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "The germinal centers contain many mitoses and  tingible-body macrophages. "}
-              GC mit and TBM
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "No granuloma or necrosis is seen. "}
-              No granuloma
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "Parafollicles (proliferation centers) are seen throughout sections.  "}
-              Parafollicles
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "Foci of small lymphocytes are seen infiltrating adjacent adipose tissue.  "}
-              Fat infiltration
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "A small number of follicles with variable size are seen, some with folliculolysis. "}
-              Folliculysis
-              %br
-              %input{:name => "lymphnode", :type => "checkbox", :value => "Cells are admixed with an inflammatory background of small lymphocytes, a few eosinophils, macrophages, and plasma cells.  "}
-              Inflamm background
+              .reportheading Lymph Node
+              - for lab,val in LNprompts
+                = succeed lab do
+                  %input{:name => "lymphnode", :type => "checkbox", :value => "#{val}"}      
             %div{:name => "peripheralblood"}
-              %b Peripheral Blood:
-              %br
-              WBC
-              %input{:checked => "True", :name => "wbc", :type => "checkbox", :value => "In the peripheral blood, a normal WBC count with unremarkable morphology seen. "}
-              Normal
-              %input{:name => "wbc", :type => "checkbox", :value => "In the peripheral blood, a low WBC count is seen. "}
-              Low
-              %input{:name => "wbc", :type => "checkbox", :value => "In the peripheral blood, a high WBC count is seen. "}
-              High
-              %input{:name => "wbc", :type => "checkbox", :value => "Some neutrophils contain toxic granulations. "}
-              Toxic
-              %input{:name => "wbc", :type => "checkbox", :value => "Some lymphocytes containing Auer rods are seen. "}
-              Auer Rods
-              %input{:name => "wbc", :type => "checkbox", :value => "Plasma cells were seen in circulating blood. "}
-              Plasma
-              %input{:name => "wbc", :type => "checkbox", :value => "Occasional reactive lymphocytes were seen. "}
-              Reactive
-              %input{:name => "wbc", :type => "checkbox", :value => "No circulating blasts are seen. "}
-              No blasts
-              %input{:name => "wbc", :type => "checkbox", :value => "Circulating blasts are seen. "}
-              Blasts
-              %br
-              RBC
-              %input{:checked => "True", :name => "rbc", :type => "radio", :value => "Red cells are normocytic normochromic. "}
-              Normal
-              %input{:name => "rbcaniso", :type => "radio", :value => "Red cells are ___chromic with mild anisocytosis. "}
-              Aniso
-              %input{:name => "rbcpoikilo", :type => "radio", :value => "Red cells are ___chromic with mild poikilocytosis. "}
-              Poikilo
-              %input{:name => "rbcpoikilo", :type => "radio", :value => "Red cells are ___chromic with mild anisocytosis and poikilocytosis. "}
-              Both
-              %input{:name => "rbc", :type => "checkbox", :value => "Dacrocytes, elliptocytes, target cells, macro-ovalucytes,  acanthocytes are seen. "}
-              Shapes
-              %input{:name => "rbc", :type => "checkbox", :value => "Rouleaux formation is seen. "}
-              Rouleaux
-              %br
-              Plt
-              %input{:checked => "True", :name => "platelet", :type => "checkbox", :value => "Platelets are adequate in number with normal granulation. "}
-              Normal
-              %input{:name => "platelet", :type => "checkbox", :value => "Platelets are reduced in number with normal granulation. "}
-              Low
-              %input{:name => "platelet", :type => "checkbox", :value => "Platelets are increased in number with normal granulation. "}
-              High
-              %input{:name => "platelet", :type => "checkbox", :value => "Platelets also show some variation in size. "}
-              SizeVar
-              %input{:name => "platelet", :type => "checkbox", :value => "Some platelets are large. "}
-              Large
-              %input{:name => "platelet", :type => "checkbox", :value => "Occasional giant platelets are seen. "}
-              Giant
-              %input{:name => "platelet", :type => "checkbox", :value => "Occasional clumping of platelets is seen. "}
-              Clumping
-              %hr
+              .reportheading WBC
+              - for lab,val in WBCprompts
+                = succeed lab do
+                  %input{:name => "wbc", :type => "checkbox", :value => "#{val}"}             
+              .reportheading RBC
+              - for lab,val in RBCprompts
+                = succeed lab do
+                  %input{:name => "rbc", :type => "checkbox", :value => "#{val}"}                              
+              .reportheading Plt
+              - for lab,val in PLTprompts
+                = succeed lab do
+                  %input{:name => "platelet", :type => "checkbox", :value => "#{val}"}                                        
             %div{:name => "bonemarrow"}
-              %b Bone Marrow:
-              %br
-              %select{:name => "bmcell"}
-                %option{:selected => "selected", :value => "normo"}
-                  normo
-                %option{:value => "hypo"}
-                  hypo
-                %option{:value => "hyper"}
-                  hyper
-              %select{:name => "bmcellpct"}
-                %option{:value => "0-10%"}
-                  0-10%
-                %option{:value => "10-20%"}
-                  10-20%
-                %option{:value => "20-30%"}
-                  20-30%
-                %option{:selected => "selected", :value => "30-40%"}
-                  30-40%
-                %option{:value => "40-50%"}
-                  40-50%
-                %option{:value => "50-60%"}
-                  50-60%
-                %option{:value => "60-70%"}
-                  60-70%
-                %option{:value => "70-80%"}
-                  70-80%
-                %option{:value => "80-90%"}
-                  80-90%
-                %option{:value => "90-100%"}
-                  90-100%
+              .reportheading Bone Marrow:            
+              %select#bmcell
+                - for val in ['normo','hypo','hyper']
+                  %option{:value => "#{val}"} 
+                    #{val}  
+              %select#bmcellpct
+                - for i in 0..9
+                  %option{:value => "#{i*10}-#{(i+1)*10}%"} 
+                    #{i*10}-#{(i+1)*10}%              
               = succeed "cm" do
                 %input{:name => "bmlength", :step => "0.01", :type => "number", :value => "0"}
               = succeed "cm" do
                 %input{:name => "bmlength2", :step => "0.01", :type => "number", :value => "0"}
-              %br
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Granulopoiesis is unremarkable. "}
-              Granulopoiesis nl
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Left-shifting is seen in granulopoiesis"}
-              Left shift
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Increased number of plasma cells is seen. "}
-              Inc plasma cells
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Numerous neutrophils are seen. "}
-              Numerous neutrophils
-              %br
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Megakaryocytes are adequate in number and are unremarkable. "}
-              Megakryocytes nl
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Megakaryocytes are ___ in number and some of them are dyplastic. Occasionally the hypolobated or bilobated megakaryocytes are seen. "}
-              Megakryocytes dysplastic
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Some megakaryocytes are bulbous. "}
-              Bulbous
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Some megakaryocytes are hyperchromatic. "}
-              Hyperchromatic
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Megakryocyte hyperplasia with clustering is seen. "}
-              Mega hyperplasia cluster
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Megakryocyte proliferation with clustering is seen. "}
-              Mega prolif cluster (PMF)
-              %br
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Erythropoiesis is unremarkable. "}
-              Erythropoiesis nl
-              %br
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Trilineage hematopoiesis is observed and is unremarkable. "}
-              Unremarkable trilineage
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Apoptotic debris is seen in the bone marrow. "}
-              Apoptotic debris
-              %input{:name => "bmoptions", :type => "checkbox", :value => "Some streaming of cells is seen. "}
-              Streaming
-              %br
+              %br            
+              - for lab,val in BMprompts
+                = succeed lab do
+                  %input{:name => "bmoptions", :type => "checkbox", :value => "#{val}"}   
               %hr
             %div{:name => "bonemarrowaspirate"}
-              %b Bone Marrow Aspirates
-              %br
-              %input{:checked => "checked", :name => "bmaoptions", :type => "checkbox", :value => "Bone marrow aspirate smears show multiple normal, cellular spicules. "}
-              Multiple normal, cellular spicules
-              %br
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "Megakaryocytes are adequate in number and unremarkable. "}
-              Megas nl
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "Megakaryocytes are reduced in number. "}
-              Reduced
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "Megakaryocytes are increased in number. "}
-              Increased
-              %br
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "No increase in plasma cells is seen."}
-              No plasma
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "The number of plasma cells is increased."}
-              Increased plasma
-              %br
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "Trilineage hematopoiesis is observed. "}
-              Trilineage nl
-              %br
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "Erythropoiesis shows a spectrum of maturation and is unremarkable.  "}
-              Erythro nl
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "Erythropoiesis shows a spectrum of maturation with mild dysplastic features. "}
-              Erythro, mild dyspl
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "Some erythroid precursors show nuclear-cytoplasmic asynchrony. "}
-              Asynchrony
-              %br
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "Granulopoiesis shows a spectrum of maturation and is unremarkable.  "}
-              Granulo nl
-              %input{:name => "bmaoptions", :type => "checkbox", :value => "Granulopoiesis is left-shifted. "}
-              Granulopoiesis left-shift
+              .reportheading Bone Marrow Aspirates            
+              - for lab,val in BMAprompts
+                = succeed lab do
+                  %input{:name => "bmaoptions", :type => "checkbox", :value => "#{val}"}
               %hr
             %div{:name => "others"}
-              %b Touch Prep
-              %input{:name => "touch", :type => "radio", :value => "Touch preparation on the marrow core shows trilineage hematopoiesis with normal findings. "}
-              Normal
-              %input{:name => "touch", :type => "radio", :value => "Touch preparation on the marrow core shows no spicules and is inadequate for analysis.  "}
-              Inadequate for Analysis
-              %br
-              %b Reticulin
-              %input{:checked => "True", :name => "reticulin", :type => "radio", :value => "Reticulin stain of the bone marrow core shows no fibrosis. "}
-              None
-              %input{:name => "reticulin", :type => "radio", :value => "Reticulin stain of the bone marrow core shows mild fibrosis (0-1+ out of 3). "}
-              Mild
-              %input{:name => "reticulin", :type => "radio", :value => "Reticulin stain of the bone marrow core shows moderate fibrosis (1-2+ out of 3). "}
-              Mod
-              %input{:name => "reticulin", :type => "radio", :value => "Reticulin stain of the bone marrow core shows marked increase in reticulin fibrosis (2-3+ out of 3). "}
-              Severe
-              %br
-              %b Iron
-              %input{:checked => "True", :name => "iron", :type => "radio", :value => "Prussian blue staining shows storage iron and some iron in a few erythroid cells without abnormalities. "}
-              Normal
-              %input{:name => "iron", :type => "radio", :value => "Prussian blue staining shows neither storage iron nor iron in any erythroid cells. "}
-              Abnormal
-              %input{:name => "iron", :type => "checkbox", :value => "However, ringed sideroblasts are also present. _% of the erythroid cells are ringed siderblasts. "}
-              RingedSidero
-              %br
-              %b Clot
-              %input{:name => "clot", :type => "checkbox", :value => "Clot shows unremarkable trilineage hematopoiesis concordant with bone marrow biopsy and aspirate. "}
-              Normal
-              %br
+              .reportheading Touch Prep
+              - for lab, val in TP_prompts
+                = succeed lab do
+                  %input{:name => "touchetc", :type => "checkbox", :value => "#{val}"}
+              .reportheading Reticulin
+              - for lab, val in Retic_prompts
+                = succeed lab do
+                  %input{:name => "touchetc", :type => "checkbox", :value => "#{val}"}
+              .reportheading Iron
+              - for lab, val in Iron_prompts
+                = succeed lab do
+                  %input{:name => "touchetc", :type => "checkbox", :value => "#{val}"}
+              .reportheading Clot
+              - for lab, val in Clot_prompts
+                = succeed lab do
+                  %input{:name => "touchetc", :type => "checkbox", :value => "#{val}"}                
               %hr
             %div{:name => "IHC"}
-              %b IHC
+              .reportheading IHC
               %br
               %input{:name => "immuno", :type => "checkbox", :value => "Immunohistochemical stains for ___ are performed and interpreted with the appropriate controls. The neoplastic cells are REPLACE. "}
-              Done
               = succeed "+" do
-                %input#immunopos{:type => "text", :value => ""}
+                %select#pos_markers{ :multiple => true, :size => "10"}
+                  - for m in FlowMarkers
+                    %option{ :value => "#{m}" }
+                      #{m}            
               = succeed "-" do
-                %input#immunoneg{:type => "text", :value => ""}
+                %select#neg_markers{ :multiple => true, :size => "10"}
+                  - for m in FlowMarkers
+                    %option{ :value => "#{m}" }
+                      #{m}                                                    
               %hr
-            %div{:name => "flow"}
-              %b Flow
-              %br
-              %input{:name => "flow", :type => "checkbox", :value => "Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD1a, CD2, CD3, CD4, CD5, CD7, CD8, CD9, CD10, CD11b, CD13, CD14, CD15, CD19, CD20, CD22, CD24, CD33, CD34, CD38, CD41, CD45, CD52, CD56, CD79a, CD117, CD235a, HLA-DR, IGM, KAPPA, LAMBDA, cMPO, and TdT. REPLACE See attached flow cytometry report for additional details. "}
-              ALP Brief Summ
-              %input{:name => "flow", :type => "checkbox", :value => "Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD10, CD19, CD20, CD34, CD45, CD56, CD117, IGM, KAPPA, LAMBDA, TDT. REPLACE See attached flow cytometry report for additional details. "}
-              ALL Brief
-              %br
-              %input{:name => "flow", :type => "checkbox", :value => "Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD7, CD13, CD14, CD15, CD19, CD33, CD34, CD45, CD56, CD117. REPLACE See attached flow cytometry report for additional details. "}
-              AML Brief (i.e. limited myeloid)
-              %input{:name => "flow", :type => "checkbox", :value => "Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD1a, CD2, CD3, CD4, CD5, CD7, CD8, CD10, CD11C, CD14, CD16, CD19, CD20, CD21, CD22, CD23, CD25, CD38, CD45, CD52, CD56, CD103, FMC7, HLA-DR, IGD, IGG, IGM, KAPPA, LAMDBA. REPLACE See attached flow cytometry report for additional details. "}
-              MRD
-              %br
-              %input{:name => "flow", :type => "checkbox", :value => "Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD1a, CD2, CD3, CD4, CD5, CD7, CD8, CD9, CD10, CD11b, CD13, CD14, CD15, CD19, CD20, CD22, CD24, CD33, CD34, CD38, CD41, CD45, CD52, CD56, CD79a, CD117, CD235a, HLA-DR, IGM, KAPPA, LAMBDA, cMPO, and TdT. REPLACE See attached flow cytometry report for additional details. "}
-              LTD Lymphoma Brief Summ
-              %input{:name => "flow", :type => "checkbox", :value => "Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD10, CD19, CD45, CD20, CD9, CD34. REPLACE See attached flow cytometry report for additional details. "}
-              Lymphoma brief
-              %br
-              %input{:name => "flow", :type => "checkbox", :value => "Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD3, CD19, CD20, CD38, CD45, CD138, KAPPA, LAMBDA, CD56. REPLACE See attached flow cytometry report for additional details. "}
-              Myeloma
-              %input{:name => "flow", :type => "checkbox", :value => "Flow cytometric analysis was performed to further evaluate the case. A panel of antibodies was used, and this included CD4,CD7, CD25, CD26, CD45, CD52, CLA. REPLACE See attached flow cytometry report for additional details. "}
-              Sezary
+            %div{:name => "flow"}            
+              .reportheading Flow
+              - for lab, val in Flow_prompts
+                = succeed lab do
+                  %input{:name => "flow", :type => "checkbox", :value => "#{val}"}     
               %br
               %input#flow_lymph{:type => "checkbox"}
               Lymphocytes              
@@ -345,13 +259,12 @@
               %input#me_erythroid{:step => "0.01", :type => "number", :value => "35"}
               plasma
               %input#me_plasma{:step => "0.01", :type => "number", :value => "4"}
-              = succeed "lymph" do
-                %br
+              lymph
               %input#me_lymph{:step => "0.01", :type => "number", :value => "10"}
               ME Ratio
               %input#me_ratio{:step => "0.01", :type => "number"}
         %td{:width => "50px"}
         %td
-          %textarea#myoutput{:cols => "40", :rows => "50"} Outputhere
-    
+          %textarea#myoutput{:cols => "40", :rows => "50"} Does not work 
+      
     %script{:src=>"js/index.js"}
